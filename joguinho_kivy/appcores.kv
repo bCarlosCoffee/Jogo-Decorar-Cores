@@ -1,0 +1,200 @@
+#! kivy: 1.11.1
+
+#:import Menu telas.tela_menu.Menu
+#:import Game telas.tela_jogo.Game
+#:import Perdeu telas.tela_perdeu.Perdeu
+#:import Pontos telas.tela_pontos.Pontos
+#:import Sobre telas.tela_sobre.Sobre
+
+<Manager>:
+    
+    Menu:
+        name: "menu"
+    
+    Game:
+        name: "game"
+    
+    Perdeu:
+        name: "perdeu"
+    
+    Pontos:
+        name: "pontos"
+    
+    Sobre:
+        name: "sobre"
+    
+
+
+
+<Botao@Button>:
+    size_hint_y: None
+    height: "60sp"
+    background_normal: ''
+    background_color: 0,0,1,1
+    font_size: "30sp"
+
+<Menu>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        canvas:
+            Rectangle:
+                source: 'Imagens/background.png'
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            Label:
+                text: "Memorize as Cores - :)"
+                font_size: "30sp"
+        
+        BoxLayout:
+            padding: "10sp"
+            orientation: "vertical"
+            spacing: "5sp"
+
+            Botao:
+                text:"Começar"
+                on_release: app.root.current = 'game'
+            
+            Botao:
+                text:"Recordes"
+                on_release: app.root.current = "pontos"
+            
+            Botao:
+                text:"Sobre"
+                on_release: app.root.current = "sobre"
+
+
+<Topo@BoxLayout>:
+    size_hint_y: None
+    height: "50sp"
+
+    canvas:
+        Color:
+            rgba: 0.4,0,0,1
+        
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Botao:
+        text:"Voltar"
+        on_release: app.root.current = "menu"
+
+<Game>:
+    BoxLayout:
+        orientation: "vertical"
+        id: box_principal
+
+
+
+<WidgetDecoraCor>:
+    orientation: "vertical"
+
+    Label:
+        text: "Decore está Cor!"
+        font_size: "30sp"
+
+    Label:
+        id: tempo_label
+        font_size: "50sp"
+
+<WidgetDoJogo>:
+    orientation: "vertical"
+
+    GridLayout:
+        cols: 2
+        size_hint_y: None
+        height: "60dp"
+
+        Label:
+            id: tentativas_label
+        
+        Label:
+            id: score_label
+
+
+    BoxLayout:
+        id: box_mudacores
+
+
+    BoxLayout:
+        Botao:
+            text: "Parar"
+            id: botao_parar
+            on_release: root.verifica()
+
+
+<Perdeu>:
+    BoxLayout:
+        orientation: "vertical"
+
+        canvas:
+            Color:
+                rgba: 0.4,0.1,0,1
+            
+            Rectangle:
+                pos: self.pos
+                size: self.size
+            
+        
+        BoxLayout:
+            orientation: "vertical"
+
+            Label:
+                text: "Acabaram as\nTentativas!!"
+                font_size: "30sp"
+
+            
+            Label:
+                id: mostrar_score_label
+                font_size: "30sp"
+        
+        Topo:
+
+<Pontos>:
+    BoxLayout:
+        orientation: "vertical"
+
+        canvas:
+            Color:
+                rgba: .16, .109, 1,1
+            
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        ScrollView:
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                id: box_pontuacoes
+        
+        Topo:
+            Botao:
+                text:"Apagar Tudo"
+                font_size: "18sp"
+                on_release: root.ApagarScores()
+
+<LabelPonts>:
+    orientation:"vertical"
+    size_hint_y: None
+    height: '60sp'
+
+    Label:
+        id: label_pontos     
+        font_size: "40sp"
+
+<Sobre>:
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            id: texto_sobre
+            font_size: '15sp'
+            text_size: root.width, None
+        
+
+        Topo:
